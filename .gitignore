@@ -105,6 +105,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+pop-pc/
 
 # Spyder project settings
 .spyderproject
