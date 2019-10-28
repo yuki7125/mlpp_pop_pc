@@ -5,7 +5,7 @@
 ## Directory
     .
     ├── data                    # store data here
-    ├── mlpp_pop_pc                    # Github source code here
+    ├── mlpp_pop_pc             # Github source code here
     │   ├── GMM
     │   ├── PMF
     └── └── README.md
@@ -27,3 +27,6 @@ pip install -r requirements.txt
 ```python
 jupyter notebook
 ```
+
+## Notes
+PEP8 guidelines: https://realpython.com/python-pep8/
