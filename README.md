@@ -14,7 +14,7 @@
 ## Installation
 Create a Python 3.7 virtual environment (make sure you have Python 3.7 in /usr/bin/)
 ```bash
-virtualenv -p /usr/bin/python3.7 venv
+virtualenv -p /usr/bin/python3.7 --no-site-packages venv
 ```
 then
 ```bash
