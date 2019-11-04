@@ -12,7 +12,7 @@
 
 
 ## Installation
-Create a Python 3 virtual environment
+Create a Python 3.7.x virtual environment
 ```bash
 virtualenv venv
 ```
