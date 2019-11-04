@@ -14,7 +14,7 @@
 ## Installation
 Create a virtual environment
 ```bash
-virtualenv venv
+virtualenv venv or virtualenv -p /usr/bin/python3 venv
 source venv/bin/activate
 ```
 
