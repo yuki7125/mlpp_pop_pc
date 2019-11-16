@@ -1,0 +1,1158 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{gaussian-mixture-model\_production}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{from} \PY{n+nn}{collections} \PY{k}{import} \PY{n}{defaultdict}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{stats}
+        \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{distributions} \PY{k}{import} \PY{n}{constraints}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib} \PY{k}{import} \PY{n}{pyplot}
+        \PY{k+kn}{from} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{patches} \PY{k}{import} \PY{n}{Ellipse}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{express} \PY{k}{as} \PY{n+nn}{px}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objects} \PY{k}{as} \PY{n+nn}{go}
+        \PY{o}{\PYZpc{}}\PY{k}{matplotlib} inline
+        \PY{k+kn}{import} \PY{n+nn}{warnings}
+        \PY{n}{warnings}\PY{o}{.}\PY{n}{filterwarnings}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ignore}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        
+        \PY{k+kn}{import} \PY{n+nn}{pyro}
+        \PY{k+kn}{import} \PY{n+nn}{pyro}\PY{n+nn}{.}\PY{n+nn}{distributions} \PY{k}{as} \PY{n+nn}{dist}
+        \PY{k+kn}{from} \PY{n+nn}{pyro} \PY{k}{import} \PY{n}{poutine}
+        \PY{k+kn}{from} \PY{n+nn}{pyro}\PY{n+nn}{.}\PY{n+nn}{infer}\PY{n+nn}{.}\PY{n+nn}{autoguide} \PY{k}{import} \PY{n}{AutoDelta}
+        \PY{k+kn}{from} \PY{n+nn}{pyro}\PY{n+nn}{.}\PY{n+nn}{optim} \PY{k}{import} \PY{n}{Adam}
+        \PY{k+kn}{from} \PY{n+nn}{pyro}\PY{n+nn}{.}\PY{n+nn}{infer} \PY{k}{import} \PY{n}{SVI}\PY{p}{,} \PY{n}{TraceEnum\PYZus{}ELBO}\PY{p}{,} \PY{n}{config\PYZus{}enumerate}\PY{p}{,} \PY{n}{infer\PYZus{}discrete}
+        
+        \PY{n}{smoke\PYZus{}test} \PY{o}{=} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CI}\PY{l+s+s1}{\PYZsq{}} \PY{o+ow}{in} \PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{)}
+        \PY{k}{assert} \PY{n}{pyro}\PY{o}{.}\PY{n}{\PYZus{}\PYZus{}version\PYZus{}\PYZus{}}\PY{o}{.}\PY{n}{startswith}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0.5.1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{pyro}\PY{o}{.}\PY{n}{enable\PYZus{}validation}\PY{p}{(}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{set\PYZus{}option}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{display.max\PYZus{}columns}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+        \PY{n}{pyplot}\PY{o}{.}\PY{n}{style}\PY{o}{.}\PY{n}{use}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ggplot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{Features:}\label{features}
+
+\begin{itemize}
+\tightlist
+\item
+  Extracted genres to identify clusters
+\item
+  Extracted release periods to identify clusters
+\item
+  Added Sentiment score on overviews and taglines
+\item
+  Scaled budget and revenue to millions
+\item
+  Main features are revenue, budget, popularity, vote\_average, runtime,
+  vote\_count etc
+\item
+  Maybe budgets are rounded
+\end{itemize}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{n}{FILE\PYZus{}DIR} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{../}\PY{l+s+s2}{\PYZdq{}}
+        \PY{n}{tmdb\PYZus{}path} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{FILE\PYZus{}DIR}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{data}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{the\PYZhy{}movies\PYZhy{}dataset}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{tmdb\PYZus{}path}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{movies\PYZus{}metadata\PYZus{}processed.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{n}{movies\PYZus{}metadata\PYZus{}dir}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}    belongs\_to\_collection    budget     id     original\_title  popularity  \textbackslash{}
+        0                      0  30000000    862          Toy Story   21.946943   
+        1                      1  65000000   8844            Jumanji   17.015539   
+        2                      1  16000000  31357  Waiting to Exhale    3.859495   
+        3                      1  60000000    949               Heat   17.924927   
+        4                      1  35000000   9091       Sudden Death    5.231580   
+        
+               revenue  runtime  vote\_average  vote\_count  revenue\_mil  budget\_mil  \textbackslash{}
+        0  373554033.0     81.0           7.7      5415.0   373.554033        30.0   
+        1  262797249.0    104.0           6.9      2413.0   262.797249        65.0   
+        2   81452156.0    127.0           6.1        34.0    81.452156        16.0   
+        3  187436818.0    170.0           7.7      1886.0   187.436818        60.0   
+        4   64350171.0    106.0           5.5       174.0    64.350171        35.0   
+        
+           drama  comedy  thriller  action  romance  adventure  family  release\_2010s  \textbackslash{}
+        0      0       1         0       0        0          0       1              0   
+        1      0       0         0       0        0          1       1              0   
+        2      1       1         0       0        1          0       0              0   
+        3      1       0         1       1        0          0       0              0   
+        4      0       0         1       1        0          1       0              0   
+        
+           release\_2000s  release\_1990s  release\_1980s\_below  overview\_vader  \textbackslash{}
+        0              0              1                    0          0.1280   
+        1              0              1                    0         -0.4588   
+        2              0              1                    0          0.8860   
+        3              0              1                    0         -0.8750   
+        4              0              1                    0          0.5106   
+        
+           tagline\_vader  
+        0         0.0000  
+        1         0.5411  
+        2         0.5812  
+        3        -0.5423  
+        4        -0.5267  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Make it interactive s.t. u can change the variables and the color}
+        \PY{n}{fig} \PY{o}{=} \PY{n}{px}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{movies\PYZus{}metadata}\PY{p}{,} \PY{n}{x}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{budget}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{revenue}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{hover\PYZus{}name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{original\PYZus{}title}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{fig}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{c+c1}{\PYZsh{} Normalize by mean and std}
+        \PY{k}{def} \PY{n+nf}{normalize}\PY{p}{(}\PY{n}{np\PYZus{}arr}\PY{p}{)}\PY{p}{:}
+            \PY{k}{return} \PY{p}{(}\PY{n}{np\PYZus{}arr} \PY{o}{\PYZhy{}} \PY{n}{np}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{np\PYZus{}arr}\PY{p}{)}\PY{p}{)} \PY{o}{/} \PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{n}{np\PYZus{}arr}\PY{p}{)}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{overview\PYZus{}vader}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{normalize}\PY{p}{(}\PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{overview\PYZus{}vader}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Stack features}
+        \PY{n}{features} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{stack}\PY{p}{(}\PY{p}{(}
+            \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{budget}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} 
+            \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{revenue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+            \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}average}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+            \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{vote\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+            \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{popularity}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+            \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{runtime}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,}
+            \PY{n}{movies\PYZus{}metadata}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{overview\PYZus{}vader}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Must be in float32}
+        \PY{n}{data} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{features}\PY{p}{,} \PY{n}{dtype}\PY{o}{=}\PY{n}{torch}\PY{o}{.}\PY{n}{float32}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Take subset of data}
+        \PY{n}{data} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{500}\PY{p}{]}
+\end{Verbatim}
+
+
+    \subsubsection{Experiment 1 (SVI and Normal Inverse Gamma
+Prior):}\label{experiment-1-svi-and-normal-inverse-gamma-prior}
+
+For \(N\) data points, the likelihood is:
+
+\begin{equation}
+    p(x_n | \pi, \mu, \sigma^2) = \sum_{k=1}^{K} \pi_k N(x_n | \mu_k, \sigma_k^2)
+\end{equation}
+
+Define prior \(\pi \in [0,1]\) such that \(\sum_{k=1}^{K} \pi_k = 1\)
+
+\begin{equation}
+    p(\pi) = Dir(\pi | \alpha \mathbb{1}_K)
+\end{equation}
+
+for fixed \(\alpha = 1\). Prior for each \(\mu_k \in \mathbb{R}^D\)
+
+\begin{equation}
+    p(\mu_k) = Normal(\mu_k | 0, I)
+\end{equation}
+
+Prior for each component \(\sigma_k^2 \in \mathbb{R}^D\) to be
+
+\begin{equation}
+    p(\sigma_k^2) = InvGamma(\sigma_k^2 | a, b)
+\end{equation}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Number of clusters}
+        \PY{n}{K} \PY{o}{=} \PY{l+m+mi}{8}
+        \PY{c+c1}{\PYZsh{} Number of dimensions}
+        \PY{n}{d} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{features}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{} Length of data}
+        \PY{n}{N} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}165}]:} \PY{k}{def} \PY{n+nf}{model}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Normal Inverse Gamma Prior\PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{weights} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{Dirichlet}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{)}\PY{p}{)} 
+          
+              \PY{k}{with} \PY{n}{pyro}\PY{o}{.}\PY{n}{plate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{component}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{K}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{locs} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{locs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{MultivariateNormal}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{*}\PY{n}{torch}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}\PY{p}{)}        
+                  \PY{n}{scale} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{InverseGamma}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                  
+              \PY{k}{with} \PY{n}{pyro}\PY{o}{.}\PY{n}{plate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{assignment} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{assignment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{Categorical}\PY{p}{(}\PY{n}{weights}\PY{p}{)}\PY{p}{)}        
+                  \PY{n}{scale\PYZus{}} \PY{o}{=} \PY{n}{scale}\PY{p}{[}\PY{n}{assignment}\PY{p}{]}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{d}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{)}
+                  \PY{n}{scale\PYZus{}} \PY{o}{*}\PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{o}{.}\PY{n}{repeat}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{assignment}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{)}
+                  \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{obs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{MultivariateNormal}\PY{p}{(}\PY{n}{locs}\PY{p}{[}\PY{n}{assignment}\PY{p}{]}\PY{p}{,} \PY{n}{scale\PYZus{}}\PY{p}{)}\PY{p}{,} \PY{n}{obs}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+                  
+          \PY{n}{global\PYZus{}guide} \PY{o}{=} \PY{n}{AutoDelta}\PY{p}{(}\PY{n}{poutine}\PY{o}{.}\PY{n}{block}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{expose}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{locs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}166}]:} \PY{n}{optim} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{optim}\PY{o}{.}\PY{n}{Adam}\PY{p}{(}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lr}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{l+m+mf}{0.1}\PY{p}{\PYZcb{}}\PY{p}{)}
+          \PY{n}{elbo} \PY{o}{=} \PY{n}{TraceEnum\PYZus{}ELBO}\PY{p}{(}\PY{n}{max\PYZus{}plate\PYZus{}nesting}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)} \PY{c+c1}{\PYZsh{} This informs Pyro that we use a single plate}
+          \PY{n}{svi} \PY{o}{=} \PY{n}{SVI}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{global\PYZus{}guide}\PY{p}{,} \PY{n}{optim}\PY{p}{,} \PY{n}{loss}\PY{o}{=}\PY{n}{elbo}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}167}]:} \PY{k}{def} \PY{n+nf}{initialize}\PY{p}{(}\PY{n}{seed}\PY{p}{)}\PY{p}{:}
+              \PY{n}{pyro}\PY{o}{.}\PY{n}{set\PYZus{}rng\PYZus{}seed}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+              \PY{n}{pyro}\PY{o}{.}\PY{n}{clear\PYZus{}param\PYZus{}store}\PY{p}{(}\PY{p}{)}
+              \PY{n}{loss} \PY{o}{=} \PY{n}{svi}\PY{o}{.}\PY{n}{loss}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{global\PYZus{}guide}\PY{p}{,} \PY{n}{data}\PY{p}{)}
+              \PY{k}{return} \PY{n}{loss}
+          
+          \PY{c+c1}{\PYZsh{} Randomize, Choose initializations}
+          \PY{n}{loss}\PY{p}{,} \PY{n}{seed} \PY{o}{=} \PY{n+nb}{min}\PY{p}{(}\PY{p}{(}\PY{n}{initialize}\PY{p}{(}\PY{n}{seed}\PY{p}{)}\PY{p}{,} \PY{n}{seed}\PY{p}{)} \PY{k}{for} \PY{n}{seed} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+          \PY{n}{initialize}\PY{p}{(}\PY{n}{seed}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{seed = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{, init loss = }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{seed}\PY{p}{,} \PY{n}{loss}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+seed = 83, init loss = 5917.205078125
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}168}]:} \PY{n}{gradient\PYZus{}norms} \PY{o}{=} \PY{n}{defaultdict}\PY{p}{(}\PY{n+nb}{list}\PY{p}{)}
+          \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{value} \PY{o+ow}{in} \PY{n}{pyro}\PY{o}{.}\PY{n}{get\PYZus{}param\PYZus{}store}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{named\PYZus{}parameters}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{value}\PY{o}{.}\PY{n}{register\PYZus{}hook}\PY{p}{(}\PY{k}{lambda} \PY{n}{g}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{n}{name}\PY{p}{:} \PY{n}{gradient\PYZus{}norms}\PY{p}{[}\PY{n}{name}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{g}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          
+          \PY{n}{losses} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{:}
+              \PY{n}{loss} \PY{o}{=} \PY{n}{svi}\PY{o}{.}\PY{n}{step}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+              \PY{n}{losses}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{loss}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}169}]:} \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{losses}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{loss}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Convergence of SVI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_11_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}170}]:} \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+          \PY{k}{for} \PY{n}{name}\PY{p}{,} \PY{n}{grad\PYZus{}norms} \PY{o+ow}{in} \PY{n}{gradient\PYZus{}norms}\PY{o}{.}\PY{n}{items}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+              \PY{n}{pyplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{grad\PYZus{}norms}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{n}{name}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{iters}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{gradient norm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{yscale}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{log}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{loc}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{best}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient norms during SVI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{;}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}171}]:} \PY{k}{def} \PY{n+nf}{plot}\PY{p}{(}\PY{n}{data}\PY{p}{,} \PY{n}{mus}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{sigmas}\PY{o}{=}\PY{k+kc}{None}\PY{p}{,} \PY{n}{colors}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{black}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{figname}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{fig.png}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{:}
+              \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}Plot 2D GMMs\PYZdq{}\PYZdq{}\PYZdq{}}
+              \PY{n}{fig} \PY{o}{=} \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+              \PY{n}{x} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}
+              \PY{n}{y} \PY{o}{=} \PY{n}{data}\PY{p}{[}\PY{p}{:}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}
+              \PY{n}{pyplot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{24}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{n}{colors}\PY{p}{)}
+          
+              \PY{k}{if} \PY{n}{mus} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{n}{x} \PY{o}{=} \PY{p}{[}\PY{n+nb}{float}\PY{p}{(}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{mus}\PY{p}{]}
+                  \PY{n}{y} \PY{o}{=} \PY{p}{[}\PY{n+nb}{float}\PY{p}{(}\PY{n}{m}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{mus}\PY{p}{]}
+                  \PY{n}{pyplot}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{p}{,} \PY{n}{y}\PY{p}{,} \PY{l+m+mi}{99}\PY{p}{,} \PY{n}{c}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{red}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+              \PY{k}{if} \PY{n}{sigmas} \PY{o+ow}{is} \PY{o+ow}{not} \PY{k+kc}{None}\PY{p}{:}
+                  \PY{k}{for} \PY{n}{sig\PYZus{}ix} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+                      \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{gca}\PY{p}{(}\PY{p}{)}
+                      \PY{k}{try}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{} For inverse gamma prior}
+                         \PY{n}{cov} \PY{o}{=} \PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{d}\PY{p}{)} \PY{o}{*} \PY{n}{sigmas}\PY{p}{[}\PY{n}{sig\PYZus{}ix}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{detach}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}
+                      \PY{k}{except}\PY{p}{:}
+                         \PY{c+c1}{\PYZsh{} For LKJ Correlation Cholesky prior}
+                         \PY{n}{cov} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{array}\PY{p}{(}\PY{n}{sigmas}\PY{p}{[}\PY{n}{sig\PYZus{}ix}\PY{p}{]}\PY{p}{)}
+                      \PY{n}{lam}\PY{p}{,} \PY{n}{v} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{eig}\PY{p}{(}\PY{n}{cov}\PY{p}{)}
+                      \PY{n}{lam} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{lam}\PY{p}{)}
+                      \PY{n}{ell} \PY{o}{=} \PY{n}{Ellipse}\PY{p}{(}\PY{n}{xy}\PY{o}{=}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{n}{sig\PYZus{}ix}\PY{p}{]}\PY{p}{,} \PY{n}{y}\PY{p}{[}\PY{n}{sig\PYZus{}ix}\PY{p}{]}\PY{p}{)}\PY{p}{,}
+                                    \PY{n}{width}\PY{o}{=}\PY{n}{lam}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,} \PY{n}{height}\PY{o}{=}\PY{n}{lam}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{l+m+mi}{4}\PY{p}{,}
+                                    \PY{n}{angle}\PY{o}{=}\PY{n}{np}\PY{o}{.}\PY{n}{rad2deg}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{arccos}\PY{p}{(}\PY{n}{v}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{,}
+                                    \PY{n}{color}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{blue}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{n}{ell}\PY{o}{.}\PY{n}{set\PYZus{}facecolor}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{none}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                      \PY{n}{ax}\PY{o}{.}\PY{n}{add\PYZus{}artist}\PY{p}{(}\PY{n}{ell}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}172}]:} \PY{c+c1}{\PYZsh{} Get MAP Estimates}
+          \PY{n}{map\PYZus{}estimates} \PY{o}{=} \PY{n}{global\PYZus{}guide}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+          \PY{n}{weights} \PY{o}{=} \PY{n}{map\PYZus{}estimates}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{locs} \PY{o}{=} \PY{n}{map\PYZus{}estimates}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{locs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{scale} \PY{o}{=} \PY{n}{map\PYZus{}estimates}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{scale}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}173}]:} \PY{c+c1}{\PYZsh{} Reference: https://nbviewer.jupyter.org/github/jiangzl2016/prob\PYZus{}prog\PYZus{}final\PYZus{}project/blob/master/final\PYZhy{}project/final\PYZhy{}notebook.ipynb}
+          \PY{c+c1}{\PYZsh{} Plot clusters, not components}
+          \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+              \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{6}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+              \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{:}
+                  \PY{n}{X} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mf}{0.01}\PY{p}{)}
+                  \PY{n}{pyplot}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{cluster}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                  \PY{n}{pyplot}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{pyplot}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Density}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                  \PY{n}{pyplot}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X}\PY{p}{,} \PY{n}{weights}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)} \PY{o}{*} \PY{n}{scipy}\PY{o}{.}\PY{n}{stats}\PY{o}{.}\PY{n}{norm}\PY{o}{.}\PY{n}{pdf}\PY{p}{(}\PY{n}{X}\PY{p}{,}\PY{n}{locs}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scale}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+          \PY{n}{pyplot}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_15_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \subsubsection{Experiment 2: NUTS and Normal-LKJ Correlation Cholesky
+Prior}\label{experiment-2-nuts-and-normal-lkj-correlation-cholesky-prior}
+
+Problem: * Clusters tend to converge together. * Not fully probabilistic
+- Inverse Gamma prior for variance does not capture cross-covariances.
+
+Alternative: * For multivariate covariance matrix, one possible
+conjugate prior is the Inverse-Wishart distribution {[}Gelmen et al.,
+Bayesian Data Analysis{]} * However, the Inverse Wishart is not a
+suitable prior in practice. Firstly, This is because the
+positive-definite and symmetric constraints the probability of
+generating a valid sample by varying each element is almost zero;
+meaning it is difficult to sample from these objects. * Secondly, the
+Wishart distribution is heavy-tailed which causes problems for samplers.
+Heavy tails are obstructions to ergodicity which is a requirement for
+MCMC. When tails of the target distribution are heavy, the sampler
+drifts around in the tails and difficult to return back to heavy mass.
+Computational cost is a concern too.
+
+Solution: * MCMC for full posterior over components. * Use the LKJ
+Correlation Cholesky Prior. * Better tails and pairs with MCMC. *
+Cholesky factors for computation.
+
+Resources: * https://docs.pymc.io/notebooks/LKJ.html *
+https://dahtah.wordpress.com/2012/08/22/priors-of-convenience/ *
+https://docs.pymc.io/notebooks/LKJ.html
+
+    Equation:
+
+LKJ distribution provides prior on correlation matrix
+\(C=Corr(x_{i}, x_{k})\).
+
+By combining priors on \(\sigma\) of each component, this induces a
+prior on the covariance matrix.
+
+Inverting \(\Sigma\) is numerically unstable and inefficient.
+
+This inversion takes \(\mathcal{O}(d^3)\).
+
+Consider the cholesky decomposition s.t. \(\Sigma= L L^T\).
+
+\(L\) is the lower-triangular matrix, which allows the computation of
+\((x-\mu)^T \Sigma^{-1} (x-\mu)\) using back substitution, which is more
+numerically stable.
+
+\begin{align}
+\theta &\sim HalfCauchy(2.5) \\
+L_\omega &\sim LKJCorrCholesky(\eta =2 ) \\
+L_\Omega &\sim diag(\sqrt{\theta}) \times \omega
+\end{align}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{k}{def} \PY{n+nf}{model}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{:}
+            \PY{l+s+sd}{\PYZdq{}\PYZdq{}\PYZdq{}}
+        \PY{l+s+sd}{    LKJ Correlation Cholesky prior for full probabilistic covariance}
+        \PY{l+s+sd}{    }
+        \PY{l+s+sd}{    Pyro Documentation: }
+        \PY{l+s+sd}{    When using LKJ with NUTS, it is important to use a step\PYZus{}size such }
+        \PY{l+s+sd}{    as 1e\PYZhy{}4. If not, you are likely to experience LAPACK errors }
+        \PY{l+s+sd}{    regarding positive\PYZhy{}definiteness.}
+        \PY{l+s+sd}{    \PYZdq{}\PYZdq{}\PYZdq{}}
+            \PY{n}{weights} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weights}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{Dirichlet}\PY{p}{(}\PY{l+m+mf}{0.5}\PY{o}{*}\PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Vector of variances for each of the d variables}
+            \PY{c+c1}{\PYZsh{} hack: to\PYZus{}event(1) fixes tensor shapes}
+            \PY{n}{theta} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{HalfCauchy}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{to\PYZus{}event}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} 
+            \PY{c+c1}{\PYZsh{} Lower cholesky factor of a correlation matrix}
+            \PY{n}{eta} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{ones}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} Lower cholesky factor of the covariance matrix}
+            \PY{n}{L\PYZus{}omega} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L\PYZus{}omega}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{LKJCorrCholesky}\PY{p}{(}\PY{n}{d}\PY{p}{,} \PY{n}{eta}\PY{p}{)}\PY{p}{)}
+            \PY{n}{L\PYZus{}Omega} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{mm}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{theta}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{L\PYZus{}omega}\PY{p}{)}
+            
+            \PY{k}{with} \PY{n}{pyro}\PY{o}{.}\PY{n}{plate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{components}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{K}\PY{p}{)}\PY{p}{:}
+                \PY{n}{mu} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{locs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{MultivariateNormal}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{1}\PY{o}{*}\PY{n}{torch}\PY{o}{.}\PY{n}{eye}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+                
+            \PY{k}{with} \PY{n}{pyro}\PY{o}{.}\PY{n}{plate}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{data}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{data}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                \PY{n}{assignment} \PY{o}{=} \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{assignment}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{Categorical}\PY{p}{(}\PY{n}{weights}\PY{p}{)}\PY{p}{)}
+                \PY{n}{pyro}\PY{o}{.}\PY{n}{sample}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{obs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{dist}\PY{o}{.}\PY{n}{MultivariateNormal}\PY{p}{(}\PY{n}{mu}\PY{p}{[}\PY{n}{assignment}\PY{p}{]}\PY{p}{,} \PY{n}{scale\PYZus{}tril}\PY{o}{=}\PY{n}{L\PYZus{}Omega}\PY{p}{)}\PY{p}{,} \PY{n}{obs}\PY{o}{=}\PY{n}{data}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{k+kn}{from} \PY{n+nn}{pyro}\PY{n+nn}{.}\PY{n+nn}{infer}\PY{n+nn}{.}\PY{n+nn}{mcmc}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{import} \PY{n}{MCMC}
+        \PY{k+kn}{from} \PY{n+nn}{pyro}\PY{n+nn}{.}\PY{n+nn}{infer}\PY{n+nn}{.}\PY{n+nn}{mcmc} \PY{k}{import} \PY{n}{NUTS}
+        \PY{n}{pyro}\PY{o}{.}\PY{n}{set\PYZus{}rng\PYZus{}seed}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{)}
+        \PY{n}{kernel} \PY{o}{=} \PY{n}{NUTS}\PY{p}{(}\PY{n}{model}\PY{p}{,} \PY{n}{step\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{1e\PYZhy{}4}\PY{p}{)} \PY{c+c1}{\PYZsh{} Use this for LJK}
+        \PY{n}{mcmc} \PY{o}{=} \PY{n}{MCMC}\PY{p}{(}\PY{n}{kernel}\PY{p}{,} \PY{n}{num\PYZus{}samples}\PY{o}{=}\PY{l+m+mi}{250}\PY{p}{,} \PY{n}{warmup\PYZus{}steps}\PY{o}{=}\PY{l+m+mi}{50}\PY{p}{)}
+        \PY{n}{mcmc}\PY{o}{.}\PY{n}{run}\PY{p}{(}\PY{n}{data}\PY{p}{)}
+        \PY{n}{posterior\PYZus{}samples} \PY{o}{=} \PY{n}{mcmc}\PY{o}{.}\PY{n}{get\PYZus{}samples}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+sample: 100\%|██████████| 300/300 [04:19,  1.16it/s, step size=3.31e-02, acc. prob=0.809]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{c+c1}{\PYZsh{} Plot trace and full posterior of mu}
+         \PY{c+c1}{\PYZsh{} Tensor shape is ([N, K, d])}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{:}
+             \PY{n}{trace} \PY{o}{=} \PY{n}{posterior\PYZus{}samples}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{locs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+             \PY{n}{fig} \PY{o}{=} \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mu}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{ax1}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{trace}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Steps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample Values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{mu}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{p}{(}\PY{n}{trace}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+             \PY{n}{fig}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot posterior of theta}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{:}
+             \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax1}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{posterior\PYZus{}samples}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Steps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample Values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)}
+             \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{posterior\PYZus{}samples}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+         \PY{n}{fig}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Compute posterior of Sigma from theta and L\PYZus{}Omega}
+         \PY{n}{Sigma\PYZus{}samples} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{posterior\PYZus{}samples}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{L\PYZus{}Omega} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{mm}\PY{p}{(}\PY{n}{torch}\PY{o}{.}\PY{n}{diag}\PY{p}{(}\PY{n}{posterior\PYZus{}samples}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{theta}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{posterior\PYZus{}samples}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{L\PYZus{}omega}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}
+             \PY{n}{Sigma} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{mm}\PY{p}{(}\PY{n}{L\PYZus{}Omega}\PY{p}{,}\PY{n}{L\PYZus{}Omega}\PY{o}{.}\PY{n}{t}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+             \PY{n}{Sigma\PYZus{}samples}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{Sigma}\PY{p}{)}
+         \PY{n}{Sigma\PYZus{}samples} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{Sigma\PYZus{}samples}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Plot trace and samples of clusters}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{fig} \PY{o}{=} \PY{n}{pyplot}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{16}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{ax1} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{121}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{x}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Density}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sigma\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{ax1}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{Sigma\PYZus{}samples}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{n}{density}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+                 \PY{n}{ax2} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{122}\PY{p}{,} \PY{n}{xlabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Steps}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{ylabel}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sample Values}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{title}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Sigma\PYZus{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{o}{+}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{j}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{ax2}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{Sigma\PYZus{}samples}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}
+                 \PY{n}{fig}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_20.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_24.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_30.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_32.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_34.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_35.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_36.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_37.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_38.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_39.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_40.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_41.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_42.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_43.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_44.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_45.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_46.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_47.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_48.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_49.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_50.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_51.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_52.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_53.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_54.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_55.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_56.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_20_57.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Get bayes estimate of cov}
+         \PY{n}{Sigma\PYZus{}bayes\PYZus{}est} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{torch}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{Sigma\PYZus{}samples}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{]}
+         \PY{n}{cov} \PY{o}{=} \PY{p}{[}\PY{n}{Sigma\PYZus{}bayes\PYZus{}est} \PY{k}{for} \PY{n}{num\PYZus{}clusters} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{]}
+         \PY{n}{cov} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{cov}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Get bayes estimate of mean}
+         \PY{n}{mu} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{torch}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{n}{posterior\PYZus{}samples}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{locs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{item}\PY{p}{(}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{d}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{K}\PY{p}{)}\PY{p}{]}
+         \PY{n}{mu} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{tensor}\PY{p}{(}\PY{n}{mu}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{}plot(data, mu, cov)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}13}]:} tensor([[ 0.6115,  1.4999,  0.3764,  0.5689,  0.2361,  0.5315, -0.7008],
+                 [-0.2911, -0.2451,  0.3205, -0.2329, -0.0083,  0.0865, -0.7567],
+                 [-0.2943, -0.1185,  0.7596,  3.3487,  6.9986,  0.5128,  0.2479],
+                 [-0.3277,  0.0626,  1.7276,  2.5138,  0.8212,  1.0803, -0.7133],
+                 [-0.2212,  2.2085,  0.8292,  1.1388,  0.3893,  0.5675,  0.5062],
+                 [-0.3125, -0.2263,  0.4274, -0.1969, -0.0517,  0.2172,  0.9193],
+                 [ 0.1534,  2.7968,  1.4728,  3.4478,  0.7906,  0.3189,  0.3722],
+                 [ 1.6371,  0.3419,  0.0778, -0.0103,  0.0735,  0.2249, -0.5850]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{n}{posterior\PYZus{}samples}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{locs}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{transpose}\PY{p}{(}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}203}]:} tensor([[[ 0.2115,  0.2549,  0.0324,  {\ldots},  0.0224,  0.1088,  0.0942],
+                   [ 1.3229,  0.2840,  0.8825,  {\ldots}, -0.4152,  0.7595,  0.7143],
+                   [-0.1744, -0.1776, -0.2500,  {\ldots}, -0.2084, -0.2200, -0.2101]],
+          
+                  [[ 2.3832,  2.3729,  2.2269,  {\ldots},  2.2671,  2.4981,  2.4775],
+                   [-1.5158, -0.5974, -1.9672,  {\ldots}, -1.2891, -1.2602, -1.2103],
+                   [-0.1379, -0.1200, -0.1847,  {\ldots}, -0.1366, -0.1339, -0.1191]],
+          
+                  [[ 7.0605,  6.8501,  7.0169,  {\ldots},  7.4004,  7.3055,  7.1897],
+                   [-0.2717, -0.1059, -0.2067,  {\ldots},  0.0793, -0.8468, -0.8167],
+                   [ 6.6245,  6.6791,  6.6346,  {\ldots},  6.7001,  6.6268,  6.6951]]])
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{c+c1}{\PYZsh{}cluster\PYZus{}one = []}
+          \PY{c+c1}{\PYZsh{}cluster\PYZus{}two = []}
+          \PY{c+c1}{\PYZsh{}cluster\PYZus{}three = []}
+          \PY{c+c1}{\PYZsh{}for i in range(len(posterior\PYZus{}samples[\PYZdq{}locs\PYZdq{}])):}
+          \PY{c+c1}{\PYZsh{}    sample = posterior\PYZus{}samples[\PYZdq{}locs\PYZdq{}][i]}
+          \PY{c+c1}{\PYZsh{}    cluster\PYZus{}one.append(sample[0])}
+          \PY{c+c1}{\PYZsh{}    cluster\PYZus{}two.append(sample[1])}
+          \PY{c+c1}{\PYZsh{}    cluster\PYZus{}three.append(sample[2])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{c+c1}{\PYZsh{} Plot trace and posterior of NUTS}
+          \PY{c+c1}{\PYZsh{} Transpose doesn\PYZsq{}t work for more than 2 clusters}
+          \PY{c+c1}{\PYZsh{}cluster\PYZus{}one = posterior\PYZus{}samples[\PYZdq{}locs\PYZdq{}].transpose(2,0)[0]}
+          \PY{c+c1}{\PYZsh{}cluster\PYZus{}two = posterior\PYZus{}samples[\PYZdq{}locs\PYZdq{}].transpose(2,0)[1]}
+          \PY{c+c1}{\PYZsh{}cluster\PYZus{}three = posterior\PYZus{}samples[\PYZdq{}locs\PYZdq{}].transpose(2,0)[2]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}82}]:} \PY{c+c1}{\PYZsh{}pyplot.title(\PYZsq{}Trace of cluster 1\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}pyplot.plot(cluster\PYZus{}one[0], color=\PYZsq{}red\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}pyplot.plot(cluster\PYZus{}one[1], color=\PYZsq{}blue\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}pyplot.show()}
+         \PY{c+c1}{\PYZsh{}pyplot.title(\PYZsq{}Trace of cluster 2\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}pyplot.plot(cluster\PYZus{}two[0], color=\PYZsq{}red\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}pyplot.plot(cluster\PYZus{}two[1], color=\PYZsq{}blue\PYZsq{})}
+         \PY{c+c1}{\PYZsh{}pyplot.show()}
+         \PY{c+c1}{\PYZsh{}mcmc\PYZus{}locs = [[torch.mean(cluster\PYZus{}one[0]), torch.mean(cluster\PYZus{}one[1])], }
+         \PY{c+c1}{\PYZsh{}             [torch.mean(cluster\PYZus{}two[0]), torch.mean(cluster\PYZus{}two[1])]]}
+         \PY{c+c1}{\PYZsh{}mcmc\PYZus{}scale = scale}
+         \PY{c+c1}{\PYZsh{}plot(data, mcmc\PYZus{}locs, mcmc\PYZus{}scale)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
