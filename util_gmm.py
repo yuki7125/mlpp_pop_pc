@@ -1,33 +1,11 @@
-import os
 import numpy as np
-import scipy.stats
 import torch
 import pandas as pd
-import plotly.express as px
-import plotly.graph_objects as go
-import warnings
-import pyro
 import pyro.distributions as dist
 
-from collections import defaultdict
-from torch.distributions import constraints
 from matplotlib import pyplot
 from matplotlib.patches import Ellipse
-from pyro import poutine
-from pyro.infer.autoguide import AutoDelta
-from pyro.optim import Adam
-from pyro.infer import SVI, TraceEnum_ELBO, \
-    config_enumerate, infer_discrete, EmpiricalMarginal
-from pyro.infer.mcmc.api import MCMC
-from pyro.infer.mcmc import NUTS
-from pyro.infer import Predictive
 
-warnings.filterwarnings('ignore')
-smoke_test = ('CI' in os.environ)
-assert pyro.__version__.startswith('0.5.1')
-pyro.enable_validation(True)
-pd.set_option('display.max_columns', None)
-pyplot.style.use('ggplot')
 
 def get_train_test_split(movies_metadata):
     """Get train test split of obs and new data"""
@@ -35,7 +13,7 @@ def get_train_test_split(movies_metadata):
     features = get_features(movies_metadata)
     data = torch.tensor(features, dtype=torch.float32)
     N = 500
-    data_new = data[N:2*N].clone().detach()
+    data_new = data[N:2 * N].clone().detach()
     data = data[:N].clone().detach()
     return data, data_new
 
@@ -74,7 +52,7 @@ def plot(data, mus=None, sigmas=None, colors='black', K=None, d=None, ax=None):
             lam, v = np.linalg.eig(cov)
             lam = np.sqrt(lam)
             ell = Ellipse(xy=(x[sig_ix], y[sig_ix]),
-                          width=lam[0]*4, height=lam[1]*4,
+                          width=lam[0] * 4, height=lam[1] * 4,
                           angle=np.rad2deg(np.arccos(v[0, 0])),
                           color='blue')
             ell.set_facecolor('none')
@@ -85,7 +63,8 @@ def normalize_data(movies_metadata):
     """Return normalized movies_metadata"""
     movies_metadata['revenue'] = normalize(movies_metadata['revenue'])
     movies_metadata['budget'] = normalize(movies_metadata['budget'])
-    movies_metadata['vote_average'] = normalize(movies_metadata['vote_average'])
+    movies_metadata['vote_average'] = normalize(
+        movies_metadata['vote_average'])
     movies_metadata['vote_count'] = normalize(movies_metadata['vote_count'])
     movies_metadata['popularity'] = normalize(movies_metadata['popularity'])
     movies_metadata['runtime'] = normalize(movies_metadata['runtime'])
@@ -102,9 +81,9 @@ def get_features(movies_metadata):
     features = np.stack((
         movies_metadata['budget'],
         movies_metadata['revenue'],
-        # movies_metadata['vote_count'],
-        # movies_metadata['vote_average'],
-        # movies_metadata['popularity']
+        movies_metadata['vote_count'],
+        movies_metadata['vote_average'],
+        movies_metadata['popularity']
     ), axis=1)
     return features
 
@@ -124,8 +103,10 @@ def get_Sigma_samples(posterior_samples):
 
 def get_bayes_estimate_cov(Sigma_samples, K):
     """Compute covariance"""
-    Sigma_bayes_est = [[torch.mean(Sigma_samples[:, i, j]).item()
-                        for j in range(len(Sigma_samples[0]))] for i in range(len(Sigma_samples[0]))]
+    Sigma_bayes_est = [
+        [torch.mean(Sigma_samples[:, i, j]).item()
+         for j in range(len(Sigma_samples[0]))]
+        for i in range(len(Sigma_samples[0]))]
     cov = [Sigma_bayes_est for num_clusters in range(K)]
     cov = torch.tensor(cov)
     return cov
@@ -133,13 +114,16 @@ def get_bayes_estimate_cov(Sigma_samples, K):
 
 def get_bayes_estimate_mu(posterior_samples):
     """Compute bayes estimate of mu"""
-    mu = [[torch.mean(posterior_samples["locs"][:, i, j]).item() for j in range(len(posterior_samples["locs"][0][0]))] for i in range(len(posterior_samples['locs'][0]))]
+    mu = [[torch.mean(posterior_samples["locs"][:, i, j]).item()
+           for j in range(len(posterior_samples["locs"][0][0]))]
+          for i in range(len(posterior_samples['locs'][0]))]
     mu = torch.tensor(mu)
     return mu
 
 
 def get_bayes_estimate_pi(posterior_samples):
-    pi = [torch.mean(posterior_samples["weights"][:, i]).item() for i in range(len(posterior_samples['weights'][0]))]
+    pi = [torch.mean(posterior_samples["weights"][:, i]).item()
+          for i in range(len(posterior_samples['weights'][0]))]
     return pi
 
 
@@ -150,10 +134,13 @@ def plot_mcmc_mu(posterior_samples, K, d):
         fig = pyplot.figure(figsize=(16, 2))
         for j in range(d):
             ax1 = fig.add_subplot(
-                121, xlabel="x", ylabel="Density", title="mu"+str(i))
+                121, xlabel="x", ylabel="Frequency", title="mu" + str(i))
             ax1.hist(trace[:, j], 50, density=True)
             ax2 = fig.add_subplot(
-                122, xlabel="Steps", ylabel="Sample Values", title="mu"+str(i))
+                122,
+                xlabel="Steps",
+                ylabel="Sample Values",
+                title="mu" + str(i))
             ax2.plot((trace[:, j]))
         fig.show()
 
@@ -162,7 +149,7 @@ def plot_mcmc_pi(posterior_samples, K, d):
     """Plot posterior of pi"""
     fig = pyplot.figure(figsize=(16, 2))
     ax1 = fig.add_subplot(
-        121, xlabel="x", ylabel="Density", title="pi")
+        121, xlabel="x", ylabel="Frequency", title="pi")
     ax2 = fig.add_subplot(
         122, xlabel="Steps", ylabel="Sample Values", title="pi")
     for i in range(K):
@@ -176,7 +163,7 @@ def plot_mcmc_theta(posterior_samples, K, d):
     fig = pyplot.figure(figsize=(16, 2))
     for j in range(d):
         ax1 = fig.add_subplot(
-            121, xlabel="x", ylabel="Density", title="theta")
+            121, xlabel="x", ylabel="Frequency", title="theta")
         ax1.hist(posterior_samples["theta"][:, j], 50, density=True)
         ax2 = fig.add_subplot(
             122, xlabel="Steps", ylabel="Sample Values", title="theta")
@@ -188,7 +175,7 @@ def plot_mcmc_Sigma(Sigma_samples, K, d):
     """Plot posterior of Sigma"""
     fig = pyplot.figure(figsize=(16, 2))
     ax1 = fig.add_subplot(
-        121, xlabel="x", ylabel="Density", title="Sigma")
+        121, xlabel="x", ylabel="Frequency", title="Sigma")
     ax2 = fig.add_subplot(
         122, xlabel="Steps", ylabel="Sample Values", title="Sigma")
     for i in range(d):
