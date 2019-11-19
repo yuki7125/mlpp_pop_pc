@@ -184,6 +184,15 @@ def plot_mcmc_Sigma(Sigma_samples, K, d):
             ax2.plot(Sigma_samples[:, i, j])
     fig.show()
 
+def plot_gmm_results(data, mu, cov, K, d):
+    """Plot how clusters look like"""
+    fig = pyplot.figure(figsize=(16, 4))
+    ax = fig.add_subplot(121, xlabel="revenue", ylabel="budget")
+    plot(data[:, 0:2], mu[:, 0:2], cov, K=K, d=d, ax=ax)
+    ax = fig.add_subplot(122, xlabel="vote_average", ylabel="vote_count")
+    plot(data[:, 2:4], mu[:, 2:4], cov, K=K, d=d, ax=ax)
+    fig.show()
+
 
 def get_members(data, assignment, group):
     data_df = pd.DataFrame(
@@ -199,3 +208,20 @@ def compute_log_likelihood(data, mu, cov, pi):
             log_likelihood += np.log(pi[j]) + \
                 dist.MultivariateNormal(mu[j], cov[j]).log_prob(data[i])
     return log_likelihood
+
+
+def plot_rep_obs_new_data(data, data_rep, data_new):
+    fig = pyplot.figure(figsize=(16, 4))
+    ax1 = fig.add_subplot(
+        121, xlabel="budget", ylabel="revenue",
+        title="PPC", ylim=(-1, 6), xlim=(-1, 4))
+    ax1.scatter(data_rep[:, 0], data_rep[:, 1], label="replicated data")
+    ax1.scatter(data[:, 0], data[:, 1], label="observed data")
+    ax1.legend()
+    ax2 = fig.add_subplot(
+        122, xlabel="budget", ylabel="revenue",
+        title="POP-PC", ylim=(-1, 6), xlim=(-1, 4))
+    ax2.scatter(data_rep[:, 0], data_rep[:, 1], label="replicated data")
+    ax2.scatter(data_new[:, 0], data_new[:, 1], label="new data")
+    ax2.legend()
+    fig.show()
