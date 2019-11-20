@@ -1,6 +1,7 @@
 import numpy as np
 import torch
 import pandas as pd
+import pyro
 import pyro.distributions as dist
 
 from matplotlib import pyplot
@@ -194,6 +195,15 @@ def plot_gmm_results(data, mu, cov, K, d):
     fig.show()
 
 
+def plot_assignments(assignment, K):
+    pyplot.figure(figsize=(8, 4))
+    pyplot.hist(assignment, bins=K, ec="k")
+    pyplot.xlabel("pi")
+    pyplot.ylabel("Frequency")
+    pyplot.title("Components")
+    pyplot.show()
+
+
 def get_members(data, assignment, group):
     data_df = pd.DataFrame(
         data.detach().numpy(), columns=['budget', 'revenue'])
@@ -210,6 +220,20 @@ def compute_log_likelihood(data, mu, cov, pi):
     return log_likelihood
 
 
+def get_replicated_data(data, mu, cov, pi):
+    data_rep = []
+    for i in range(len(data)):
+        cluster = pyro.sample('category', dist.Categorical(torch.tensor(pi)))
+        idx = cluster.item()
+        sample = pyro.sample("obs", dist.MultivariateNormal(mu[idx], cov[idx]))
+        while sample[0] < min(data[:, 0]) or sample[1] < min(data[:, 1]):
+            # Only sample valid points
+            sample = pyro.sample("obs", dist.MultivariateNormal(mu[idx], cov[idx]))
+        data_rep.append(sample.tolist())
+    data_rep = torch.tensor(data_rep)
+    return data_rep
+
+
 def plot_rep_obs_new_data(data, data_rep, data_new):
     fig = pyplot.figure(figsize=(16, 4))
     ax1 = fig.add_subplot(
@@ -224,4 +248,23 @@ def plot_rep_obs_new_data(data, data_rep, data_new):
     ax2.scatter(data_rep[:, 0], data_rep[:, 1], label="replicated data")
     ax2.scatter(data_new[:, 0], data_new[:, 1], label="new data")
     ax2.legend()
+    fig.show()
+
+
+def plot_ppc_vs_poppc():
+    K_variable = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+    ppc_response = [1028425, 499302, 2828440, 15175103, 15331, 30597838,
+                    4952241, 17231320, 6284324, 5327910, 4547856, 23852158,
+                    17231514]
+
+    pop_pc_response = [2522314, 833008, 1790494, 77044920, 3299700,
+                       158990000, 8688746, 129820000, 1125285, 19079732,
+                       30745118, 72734376, 94568328]
+
+    fig = pyplot.figure(figsize=(16, 4))
+    ax = fig.add_subplot(
+        111, xlabel="K number of clusters", ylabel="Discrepancy", title="POP-PC vs PPC")
+    ax.plot(K_variable, np.sqrt(ppc_response), label="PPC")
+    ax.plot(K_variable, np.sqrt(pop_pc_response), label="POP-PC")
+    ax.legend()
     fig.show()
