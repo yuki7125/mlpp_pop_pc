@@ -185,6 +185,7 @@ def plot_mcmc_Sigma(Sigma_samples, K, d):
             ax2.plot(Sigma_samples[:, i, j])
     fig.show()
 
+
 def plot_gmm_results(data, mu, cov, K, d):
     """Plot how clusters look like"""
     fig = pyplot.figure(figsize=(16, 4))
@@ -228,7 +229,8 @@ def get_replicated_data(data, mu, cov, pi):
         sample = pyro.sample("obs", dist.MultivariateNormal(mu[idx], cov[idx]))
         while sample[0] < min(data[:, 0]) or sample[1] < min(data[:, 1]):
             # Only sample valid points
-            sample = pyro.sample("obs", dist.MultivariateNormal(mu[idx], cov[idx]))
+            sample = pyro.sample(
+                        "obs", dist.MultivariateNormal(mu[idx], cov[idx]))
         data_rep.append(sample.tolist())
     data_rep = torch.tensor(data_rep)
     return data_rep
@@ -263,7 +265,8 @@ def plot_ppc_vs_poppc():
 
     fig = pyplot.figure(figsize=(16, 4))
     ax = fig.add_subplot(
-        111, xlabel="K number of clusters", ylabel="Discrepancy", title="POP-PC vs PPC")
+        111, xlabel="K number of clusters",
+        ylabel="Discrepancy", title="POP-PC vs PPC")
     ax.plot(K_variable, np.sqrt(ppc_response), label="PPC")
     ax.plot(K_variable, np.sqrt(pop_pc_response), label="POP-PC")
     ax.legend()
