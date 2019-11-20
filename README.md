@@ -6,8 +6,8 @@
     .
     ├── data                    # store data here
     ├── mlpp_pop_pc             # Github source code here
-    │   ├── GMM
-    │   ├── PMF
+    │   ├── final-project
+    │   ├── requirements.txt
     └── └── README.md
 
 
@@ -31,6 +31,12 @@ pip install -r requirements.txt
 ```python
 jupyter notebook
 ```
+
+## About the Data
+- Since the data is too big to place on Github, we have placed the required data on a Google Drive in the following link:
+https://drive.google.com/open?id=1yBBesBV5kQj5aPwDz4hq6uu6uJ9AgAAM
+Place the data as specified in the directory.
+
 ## References
 - Ranganath & Blei 2019 Population Predictive Checks
 - Salakhutdinov & Mnih 2008 Probabilistic Matrix Factorization
